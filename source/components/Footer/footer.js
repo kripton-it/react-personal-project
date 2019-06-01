@@ -5,20 +5,29 @@ import Styles from "./styles.m.css";
 
 // Components
 import Checkbox from "../../theme/assets/Checkbox";
+import { Consumer } from "../../HOC/with-tasks";
 
-const Footer = (props) => {
-  const isChecked = props.tasks.every((task) => task.completed);
-
+const Footer = () => {
   return (
-    <footer>
-      <Checkbox
-        checked={isChecked}
-        color1="var(--paletteColor7)"
-        color2="#ffffff"
-        inlineBlock
-      />
-      <span className= { Styles.completeAllTasks }>Все задачи выполнены</span>
-    </footer>
+    <Consumer>
+      {(tasks) => {
+        const isChecked = tasks.every(task => task.completed);
+
+        return (
+          <footer>
+            <Checkbox
+              checked={isChecked}
+              color1="var(--paletteColor7)"
+              color2="#ffffff"
+              inlineBlock
+            />
+            <span className={Styles.completeAllTasks}>
+              Все задачи выполнены
+            </span>
+          </footer>
+        );
+      }}
+    </Consumer>
   );
 };
 
