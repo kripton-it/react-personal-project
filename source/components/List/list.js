@@ -3,10 +3,10 @@ import React from "react";
 // Components
 import Task from "./../Task";
 
-const List = () => {
+const List = ({tasks}) => {
   return (
     <ul>
-      <Task />
+      {tasks.map(task => <Task key={task.id} task={task}/>)}
     </ul>
   );
 };

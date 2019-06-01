@@ -2,17 +2,14 @@ import React from "react";
 
 // Components
 import Task from "./../Task";
+import AddForm from "../AddForm";
+import List from "./../List";
 
-const Main = () => {
+const Main = (props) => {
   return (
     <section>
-      <form>
-        <input placeholder= 'Описание моей новой задачи' type= 'text' />
-        <button type= 'button'>Добавить задачу</button>
-      </form>
-      <ul>
-        <Task />
-      </ul>
+      <AddForm />
+      <List { ...props } />
     </section>
   );
 };

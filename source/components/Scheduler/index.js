@@ -18,8 +18,8 @@ export default class Scheduler extends Component {
       <section className= { scheduler }>
         <main>
           <Header />
-          <Main />
-          <Footer />
+          <Main { ...this.props } />
+          <Footer { ...this.props } />
         </main>
       </section>
     );

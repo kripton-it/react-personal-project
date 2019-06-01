@@ -15,54 +15,59 @@ export default class Task extends PureComponent {
     id = this.props.id,
     completed = this.props.completed,
     favorite = this.props.favorite,
-    message = this.props.message,
+    message = this.props.message
   }) => ({
     id,
     completed,
     favorite,
-    message,
+    message
   });
 
-  render () {
+  render() {
     const {
       task,
       content,
       actions,
       toggleTaskCompletedState,
       toggleTaskFavoriteState,
-      updateTaskMessageOnClick,
+      updateTaskMessageOnClick
     } = Styles;
 
+    const { completed, favorite, message } = this.props.task;
+
     return (
-      <li className ={ task }>
-        <div className= { content }>
+      <li className={task}>
+        <div className={content}>
           <Checkbox
-            className ={ toggleTaskCompletedState }
-            color1= 'var(--paletteColor3)'
-            color2 ='var(--paletteColor2)'
-            color4 ='var(--paletteColor10)'
+            className={toggleTaskCompletedState}
+            color1="var(--paletteColor3)"
+            color2="var(--paletteColor2)"
+            color4="var(--paletteColor10)"
             inlineBlock
+            checked={completed}
           />
-          <input type= 'text' value ='Задача 1' disabled />
+          <input type="text" value={message} disabled />
         </div>
-        <div className= { actions }>
+        <div className={actions}>
           <Star
             inlineBlock
-            className ={ toggleTaskFavoriteState }
-            color1 ='var(--paletteColor10)'
-            color2 ='var(--paletteColor3)'
+            className={toggleTaskFavoriteState}
+            color1="var(--paletteColor3)"
+            color2="var(--paletteColor3)"
+            color4="var(--paletteColor10)"
+            checked={favorite}
           />
           <Edit
             inlineBlock
-            className= { updateTaskMessageOnClick }
-            color1= 'var(--paletteColor10)'
-            color2 ='var(--paletteColor3)'
+            className={updateTaskMessageOnClick}
+            color1="var(--paletteColor10)"
+            color2="var(--paletteColor3)"
           />
           <Remove
             inlineBlock
-            className= { toggleTaskCompletedState }
-            color1= 'var(--paletteColor10)'
-            color2 ='var(--paletteColor3)'
+            className={toggleTaskCompletedState}
+            color1="var(--paletteColor10)"
+            color2="var(--paletteColor3)"
           />
         </div>
       </li>

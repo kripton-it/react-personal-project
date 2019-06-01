@@ -6,10 +6,17 @@ import Styles from "./styles.m.css";
 // Components
 import Checkbox from "../../theme/assets/Checkbox";
 
-const Footer = () => {
+const Footer = (props) => {
+  const isChecked = props.tasks.every((task) => task.completed);
+
   return (
     <footer>
-      <Checkbox color1= 'var(--paletteColor7)' color2= '#ffffff' inlineBlock />
+      <Checkbox
+        checked={isChecked}
+        color1="var(--paletteColor7)"
+        color2="#ffffff"
+        inlineBlock
+      />
       <span className= { Styles.completeAllTasks }>Все задачи выполнены</span>
     </footer>
   );
