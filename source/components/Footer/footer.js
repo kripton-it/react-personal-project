@@ -8,27 +8,27 @@ import Checkbox from "../../theme/assets/Checkbox";
 import { Consumer } from "../../HOC/with-tasks";
 
 const Footer = () => {
-  return (
-    <Consumer>
-      {(tasks) => {
-        const isChecked = tasks.every(task => task.completed);
+    return (
+        <Consumer>
+            {(tasks) => {
+                const isChecked = tasks.every((task) => task.completed);
 
-        return (
-          <footer>
-            <Checkbox
-              checked={isChecked}
-              color1="var(--paletteColor7)"
-              color2="#ffffff"
-              inlineBlock
-            />
-            <span className={Styles.completeAllTasks}>
-              Все задачи выполнены
-            </span>
-          </footer>
-        );
-      }}
-    </Consumer>
-  );
+                return (
+                    <footer>
+                        <Checkbox
+                            inlineBlock
+                            checked = { isChecked }
+                            color1 = 'var(--paletteColor7)'
+                            color2 = '#ffffff'
+                        />
+                        <span className = { Styles.completeAllTasks }>
+                            Все задачи выполнены
+                        </span>
+                    </footer>
+                );
+            }}
+        </Consumer>
+    );
 };
 
 export default Footer;

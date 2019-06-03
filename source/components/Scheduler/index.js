@@ -11,17 +11,17 @@ import Main from "../Main";
 import Footer from "../Footer/footer";
 
 export default class Scheduler extends Component {
-  render() {
-    const { scheduler } = Styles;
+    render () {
+        const { scheduler } = Styles;
 
-    return (
-      <section className={scheduler}>
-        <main>
-          <Header />
-          <Main />
-          <Footer />
-        </main>
-      </section>
-    );
-  }
+        return (
+            <section className = { scheduler }>
+                <main>
+                    <Header />
+                    <Main />
+                    <Footer />
+                </main>
+            </section>
+        );
+    }
 }
