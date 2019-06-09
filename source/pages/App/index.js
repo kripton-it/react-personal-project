@@ -2,9 +2,8 @@
 import React, { Component } from "react";
 import { hot } from "react-hot-loader";
 import Scheduler from "./../../components/Scheduler";
-import { Provider } from "../../HOC/with-tasks";
 
-const tasks = [
+/*const tasks = [
     {
         id:        1,
         message:   "Задача 1",
@@ -23,16 +22,12 @@ const tasks = [
         completed: true,
         favorite:  false,
     }
-];
+];*/
 
 @hot(module)
 class App extends Component {
     render () {
-        return (
-            <Provider value ={ tasks }>
-                <Scheduler />
-            </Provider>
-        );
+        return <Scheduler />;
     }
 }
 

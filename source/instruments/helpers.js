@@ -57,3 +57,9 @@ export class BaseTaskModel {
         this.message = message;
     }
 }
+
+export const delay = (duration = 1000) => {
+    return new Promise((resolve) => {
+        setTimeout(resolve, duration);
+    });
+};
