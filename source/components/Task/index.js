@@ -23,6 +23,13 @@ export default class Task extends PureComponent {
         message,
     });
 
+    handleRemove = async () => {
+        const { task, onRemoveTask } = this.props;
+        const { id } = task;
+
+        await onRemoveTask(id);
+    }
+
     render () {
         const {
             task,
@@ -68,6 +75,7 @@ export default class Task extends PureComponent {
                         className = { toggleTaskCompletedState }
                         color1 = 'var(--paletteColor10)'
                         color2 = 'var(--paletteColor3)'
+                        onClick = { this.handleRemove }
                     />
                 </div>
             </li>

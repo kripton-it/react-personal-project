@@ -14,14 +14,8 @@ import Footer from "../Footer";
 import Spinner from "../Spinner";
 
 export default class Scheduler extends Component {
-    constructor () {
-        super();
-        this._addTask = this._addTask.bind(this);
-        this._updateTaskMessage = this._updateTaskMessage.bind(this);
-    }
-
     state = {
-        isTasksFetching: false,
+        isFetching: false,
         tasks:           [],
         newTaskMessage:  '',
     };
@@ -32,24 +26,24 @@ export default class Scheduler extends Component {
 
     _fetchTasks = async () => {
         this.setState({
-            isTasksFetching: true,
+            isFetching: true,
         });
 
         const tasks = await api.fetchTasks();
 
         this.setState({
-            isTasksFetching: false,
+            isFetching: false,
             tasks,
         });
     }
 
-    _updateTaskMessage ({ target }) {
+    _updateTaskMessage = ({ target }) => {
         this.setState({
             newTaskMessage: target.value,
         });
     }
 
-    async _addTask () {
+    _addTask = async () => {
         const { newTaskMessage } = this.state;
 
         if (!newTaskMessage) {
@@ -57,34 +51,48 @@ export default class Scheduler extends Component {
         }
 
         this.setState({
-            isTasksFetching: true,
+            isFetching: true,
         });
 
         const newTask = await api.addNewTask(newTaskMessage);
 
         this.setState(({ tasks }) => {
             return {
-                isTasksFetching: false,
+                isFetching: false,
                 tasks:           [newTask, ...tasks],
                 newTaskMessage:  '',
             };
         });
     }
 
+    _removeTask = async (id) => {
+        this.setState({
+            isFetching: true,
+        });
+
+        await api.removeTask(id);
+
+        this.setState(({ tasks }) => ({
+            isFetching: false,
+            tasks:      tasks.filter((task) => task.id !== id),
+        }));
+    }
+
     render () {
         const { scheduler } = Styles;
-        const { tasks, isTasksFetching, newTaskMessage } = this.state;
+        const { tasks, isFetching, newTaskMessage } = this.state;
 
         return (
             <Provider value = { tasks }>
                 <section className = { scheduler }>
                     <main>
-                        <Spinner isSpinning = { isTasksFetching } />
+                        <Spinner isSpinning = { isFetching } />
                         <Header />
                         <Main
                             taskMessage = { newTaskMessage }
                             onAddTask = { this._addTask }
                             onChangeTask = { this._updateTaskMessage }
+                            onRemoveTask = { this._removeTask }
                         />
                         <Footer />
                     </main>

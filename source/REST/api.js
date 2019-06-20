@@ -15,15 +15,9 @@ const load = async ({
 } = {}) => {
     const response = await fetch(url, { method, body, headers });
 
-    console.log("response: ", response);
+    // const { data } = await response.json();
 
-    const { data } = await response.json();
-
-    //const { data } = response;
-
-    console.log("data: ", data);
-
-    return data;
+    return response;
 };
 
 const fetchTasks = async () => {
@@ -32,7 +26,9 @@ const fetchTasks = async () => {
             Authorization: TOKEN,
         },
     };
-    const tasks = await load(config);
+    const response = await load(config);
+
+    const { data: tasks } = await response.json();
 
     return tasks;
 };
@@ -47,12 +43,27 @@ const addNewTask = async (text) => {
         },
     };
 
-    const task = await load(config);
+    const response = await load(config);
+
+    const { data: task } = await response.json();
 
     return task;
 };
 
+const removeTask = async (id) => {
+    const config = {
+        url:     `${MAIN_URL}/${id}`,
+        method:  Method.DELETE,
+        headers: {
+            Authorization: TOKEN,
+        },
+    };
+
+    await load(config);
+}
+
 export const api = {
     fetchTasks,
     addNewTask,
+    removeTask,
 };
