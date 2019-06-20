@@ -37,6 +37,13 @@ export default class Task extends PureComponent {
         await onUpdateTask({ ...task, completed: !completed });
     }
 
+    handleFavorite = async () => {
+        const { task, onUpdateTask } = this.props;
+        const { favorite } = task;
+
+        await onUpdateTask({ ...task, favorite: !favorite });
+    }
+
     render () {
         const {
             task,
@@ -71,6 +78,7 @@ export default class Task extends PureComponent {
                         color1 = 'var(--paletteColor3)'
                         color2 = 'var(--paletteColor3)'
                         color4 = 'var(--paletteColor10)'
+                        onClick = { this.handleFavorite }
                     />
                     <Edit
                         inlineBlock
