@@ -1,5 +1,5 @@
 // Core
-import React, { PureComponent } from "react";
+import React, { PureComponent, createRef } from "react";
 
 // Instruments
 import Styles from "./styles.m.css";
@@ -11,6 +11,27 @@ import Edit from "../../theme/assets/Edit";
 import Remove from "../../theme/assets/Remove";
 
 export default class Task extends PureComponent {
+    constructor (props) {
+        super(props);
+        this.state = {
+            isEditing: false,
+            message:   this.props.message,
+        }
+    }
+
+    componentDidUpdate () {
+        const { isEditing } = this.state;
+
+        if (isEditing) {
+            this.editInputRef.current.focus();
+            document.addEventListener('keydown', this.handleEscPress);
+        } else {
+            document.removeEventListener('keydown', this.handleEscPress);
+        }
+    }
+
+    editInputRef = createRef();
+
     _getTaskShape = ({
         id = this.props.id,
         completed = this.props.completed,
@@ -24,24 +45,73 @@ export default class Task extends PureComponent {
     });
 
     handleRemove = async () => {
-        const { task, onRemoveTask } = this.props;
-        const { id } = task;
+        const { id, onRemoveTask } = this.props;
 
         await onRemoveTask(id);
     }
 
     handleComplete = async () => {
-        const { task, onUpdateTask } = this.props;
-        const { completed } = task;
+        const { completed, onUpdateTask } = this.props;
 
-        await onUpdateTask({ ...task, completed: !completed });
+        await onUpdateTask(this._getTaskShape({ completed: !completed }));
     }
 
     handleFavorite = async () => {
-        const { task, onUpdateTask } = this.props;
-        const { favorite } = task;
+        const { favorite, onUpdateTask } = this.props;
 
-        await onUpdateTask({ ...task, favorite: !favorite });
+        await onUpdateTask(this._getTaskShape({ favorite: !favorite }));
+    }
+
+    handleEdit = async () => {
+        const { isEditing, message } = this.state;
+
+        if (!isEditing) {
+            this.setState({
+                isEditing: true,
+            });
+        } else if (message) {
+            await this.updateMessage();
+            this.setState({
+                isEditing: false,
+            });
+        } else {
+            this.editInputRef.current.focus();
+        }
+    }
+
+    handleChange = ({ target }) => {
+        this.setState({
+            message: target.value,
+        });
+    }
+
+    updateMessage = async () => {
+        const { onUpdateTask } = this.props;
+        const { message } = this.state;
+
+        await onUpdateTask(this._getTaskShape({ message }));
+    }
+
+    handleEnterPress = async ({ key }) => {
+        if (key !== 'Enter' || !this.state.message) {
+            return;
+        }
+
+        await this.updateMessage();
+        this.setState({
+            isEditing: false,
+        });
+    }
+
+    handleEscPress = ({ key }) => {
+        if (key !== 'Escape') {
+            return;
+        }
+
+        this.setState({
+            isEditing: false,
+            message:   this.props.message,
+        });
     }
 
     render () {
@@ -54,7 +124,9 @@ export default class Task extends PureComponent {
             updateTaskMessageOnClick,
         } = Styles;
 
-        const { completed, favorite, message } = this.props.task;
+        const { completed, favorite } = this.props;
+
+        const { isEditing, message } = this.state;
 
         return (
             <li className = { task }>
@@ -68,7 +140,15 @@ export default class Task extends PureComponent {
                         color4 = 'var(--paletteColor10)'
                         onClick = { this.handleComplete }
                     />
-                    <input disabled type = 'text' value = { message } />
+                    <input
+                        disabled = { !isEditing }
+                        maxLength = { 50 }
+                        ref = { this.editInputRef }
+                        type = 'text'
+                        value = { message }
+                        onChange = { this.handleChange }
+                        onKeyPress = { this.handleEnterPress }
+                    />
                 </div>
                 <div className = { actions }>
                     <Star
@@ -85,6 +165,7 @@ export default class Task extends PureComponent {
                         className = { updateTaskMessageOnClick }
                         color1 = 'var(--paletteColor10)'
                         color2 = 'var(--paletteColor3)'
+                        onClick = { this.handleEdit }
                     />
                     <Remove
                         inlineBlock

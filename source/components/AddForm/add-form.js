@@ -34,6 +34,7 @@ class AddForm extends Component {
         return (
             <form onSubmit = { this._handleFormSubmit }>
                 <input
+                    maxLength = { 50 }
                     placeholder = 'Описание моей новой задачи '
                     type = 'text'
                     value = { taskMessage }
