@@ -4,14 +4,19 @@ import React from "react";
 import Task from "./../Task";
 import { Consumer } from "../../HOC/with-tasks";
 
-const List = ({ onRemoveTask }) => {
+const List = ({ onRemoveTask, onUpdateTask }) => {
     return (
         <Consumer>
             {(tasks) => {
                 return (
                     <ul>
                         {tasks.map((task) => (
-                            <Task key = { task.id } task = { task } onRemoveTask = { onRemoveTask } />
+                            <Task
+                                key = { task.id }
+                                task = { task }
+                                onRemoveTask = { onRemoveTask }
+                                onUpdateTask = { onUpdateTask }
+                            />
                         ))}
                     </ul>
                 );

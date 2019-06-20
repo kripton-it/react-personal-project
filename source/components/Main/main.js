@@ -5,7 +5,13 @@ import AddForm from "../AddForm";
 import List from "./../List";
 
 const Main = (props) => {
-    const { onAddTask, onChangeTask, onRemoveTask, taskMessage } = props;
+    const {
+        onAddTask,
+        onChangeTask,
+        onRemoveTask,
+        onUpdateTask,
+        taskMessage,
+    } = props;
 
     return (
         <section>
@@ -14,7 +20,7 @@ const Main = (props) => {
                 onAddTask = { onAddTask }
                 onChange = { onChangeTask }
             />
-            <List onRemoveTask = { onRemoveTask } />
+            <List onRemoveTask = { onRemoveTask } onUpdateTask = { onUpdateTask } />
         </section>
     );
 };

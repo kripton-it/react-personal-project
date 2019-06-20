@@ -30,6 +30,13 @@ export default class Task extends PureComponent {
         await onRemoveTask(id);
     }
 
+    handleComplete = async () => {
+        const { task, onUpdateTask } = this.props;
+        const { completed } = task;
+
+        await onUpdateTask({ ...task, completed: !completed });
+    }
+
     render () {
         const {
             task,
@@ -52,6 +59,7 @@ export default class Task extends PureComponent {
                         color1 = 'var(--paletteColor3)'
                         color2 = 'var(--paletteColor2)'
                         color4 = 'var(--paletteColor10)'
+                        onClick = { this.handleComplete }
                     />
                     <input disabled type = 'text' value = { message } />
                 </div>

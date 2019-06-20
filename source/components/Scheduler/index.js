@@ -78,6 +78,25 @@ export default class Scheduler extends Component {
         }));
     }
 
+    _updateTask = async (updatedTask) => {
+        this.setState({
+            isFetching: true,
+        });
+
+        const newTask = await api.updateTask(updatedTask);
+
+        this.setState(({ tasks }) => ({
+            isFetching: false,
+            tasks:      tasks.map((task) => {
+                if (newTask.id === task.id) {
+                    return newTask;
+                }
+
+                return task;
+            }),
+        }));
+    }
+
     render () {
         const { scheduler } = Styles;
         const { tasks, isFetching, newTaskMessage } = this.state;
@@ -93,6 +112,7 @@ export default class Scheduler extends Component {
                             onAddTask = { this._addTask }
                             onChangeTask = { this._updateTaskMessage }
                             onRemoveTask = { this._removeTask }
+                            onUpdateTask = { this._updateTask }
                         />
                         <Footer />
                     </main>

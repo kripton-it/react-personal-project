@@ -60,10 +60,28 @@ const removeTask = async (id) => {
     };
 
     await load(config);
+};
+
+const updateTask = async ({ id, message, completed, favorite }) => {
+    const config = {
+        body:    JSON.stringify([{ id, message, completed, favorite }]),
+        method:  Method.PUT,
+        headers: {
+            Authorization:  TOKEN,
+            "Content-Type": "application/json",
+        },
+    };
+
+    const response = await load(config);
+
+    const { data: tasks } = await response.json();
+
+    return tasks[0];
 }
 
 export const api = {
     fetchTasks,
     addNewTask,
     removeTask,
+    updateTask,
 };
