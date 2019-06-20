@@ -4,7 +4,7 @@ import React, { Component } from "react";
 // Instruments
 import Styles from "./styles.m.css";
 import { Provider } from "../../HOC/with-tasks";
-import { delay, BaseTaskModel } from "../../instruments";
+import { sortTasksByGroup } from './../../instruments/helpers';
 import { api } from "../../REST"; // ! Импорт модуля API должен иметь именно такой вид (import { api } from '../../REST')
 
 // Components
@@ -123,7 +123,7 @@ export default class Scheduler extends Component {
         const { tasks, isFetching, newTaskMessage } = this.state;
 
         return (
-            <Provider value = { tasks }>
+            <Provider value = { sortTasksByGroup(tasks) }>
                 <section className = { scheduler }>
                     <main>
                         <Spinner isSpinning = { isFetching } />
