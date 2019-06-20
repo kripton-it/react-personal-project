@@ -7,7 +7,7 @@ import Styles from "./styles.m.css";
 import Checkbox from "../../theme/assets/Checkbox";
 import { Consumer } from "../../HOC/with-tasks";
 
-const Footer = () => {
+const Footer = ({ onToggleComplete }) => {
     return (
         <Consumer>
             {(tasks) => {
@@ -20,6 +20,7 @@ const Footer = () => {
                             checked = { isChecked }
                             color1 = 'var(--paletteColor7)'
                             color2 = '#ffffff'
+                            onClick = { onToggleComplete }
                         />
                         <span className = { Styles.completeAllTasks }>
                             Все задачи выполнены

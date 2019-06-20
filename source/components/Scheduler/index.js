@@ -15,9 +15,9 @@ import Spinner from "../Spinner";
 
 export default class Scheduler extends Component {
     state = {
-        isFetching: false,
-        tasks:           [],
-        newTaskMessage:  '',
+        isFetching:     false,
+        tasks:          [],
+        newTaskMessage: '',
     };
 
     componentDidMount () {
@@ -97,6 +97,27 @@ export default class Scheduler extends Component {
         }));
     }
 
+    _toggleCompletedAll = async () => {
+        this.setState({
+            isFetching: true,
+        });
+
+        const { tasks } = this.state;
+
+        const isAllCompleted = tasks.every(({ completed }) => completed);
+
+        const newTasks = await Promise.all(tasks.map((task) => {
+            const updatedTask = { ...task, completed: !isAllCompleted };
+
+            return api.updateTask(updatedTask);
+        }));
+
+        this.setState({
+            isFetching: false,
+            tasks:      newTasks,
+        });
+    }
+
     render () {
         const { scheduler } = Styles;
         const { tasks, isFetching, newTaskMessage } = this.state;
@@ -114,7 +135,7 @@ export default class Scheduler extends Component {
                             onRemoveTask = { this._removeTask }
                             onUpdateTask = { this._updateTask }
                         />
-                        <Footer />
+                        <Footer onToggleComplete = { this._toggleCompletedAll } />
                     </main>
                 </section>
             </Provider>
