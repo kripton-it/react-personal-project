@@ -26,6 +26,23 @@ export default class Scheduler extends Component {
         newTaskMessage:  '',
     };
 
+    componentDidMount () {
+        this._fetchTasks();
+    }
+
+    _fetchTasks = async () => {
+        this.setState({
+            isTasksFetching: true,
+        });
+
+        const tasks = await api.fetchTasks();
+
+        this.setState({
+            isTasksFetching: false,
+            tasks,
+        });
+    }
+
     _updateTaskMessage ({ target }) {
         this.setState({
             newTaskMessage: target.value,
@@ -43,9 +60,7 @@ export default class Scheduler extends Component {
             isTasksFetching: true,
         });
 
-        const newTask = new BaseTaskModel(void 0, false, false, newTaskMessage);
-
-        await delay(2000);
+        const newTask = await api.addNewTask(newTaskMessage);
 
         this.setState(({ tasks }) => {
             return {
