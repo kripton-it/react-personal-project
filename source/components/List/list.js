@@ -14,8 +14,8 @@ const List = ({ onRemoveTask, onUpdateTask }) => {
                             <Task
                                 key = { task.id }
                                 { ...task }
-                                onRemoveTask = { onRemoveTask }
-                                onUpdateTask = { onUpdateTask }
+                                _removeTaskAsync = { onRemoveTask }
+                                _updateTaskAsync = { onUpdateTask }
                             />
                         ))}
                     </ul>

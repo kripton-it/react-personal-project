@@ -15,8 +15,6 @@ const load = async ({
 } = {}) => {
     const response = await fetch(url, { method, body, headers });
 
-    // const { data } = await response.json();
-
     return response;
 };
 
@@ -33,7 +31,7 @@ const fetchTasks = async () => {
     return tasks;
 };
 
-const addNewTask = async (text) => {
+const createTask = async (text) => {
     const config = {
         method:  Method.POST,
         body:    JSON.stringify({ message: text }),
@@ -76,12 +74,30 @@ const updateTask = async ({ id, message, completed, favorite }) => {
 
     const { data: tasks } = await response.json();
 
-    return tasks[0];
+    // return tasks[0];
+    return tasks;
+};
+
+const completeAllTasks = async (tasks) => {
+    try {
+        await Promise.all(tasks.map((task) => {
+            const updatedTask = { ...task, completed: true };
+
+            const taskPromise = updateTask(updatedTask);
+
+            return taskPromise;
+        }));
+
+        return;
+    } catch (error) {
+        throw new Error(error);
+    }
 }
 
 export const api = {
     fetchTasks,
-    addNewTask,
+    createTask,
     removeTask,
     updateTask,
+    completeAllTasks,
 };

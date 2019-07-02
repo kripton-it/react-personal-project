@@ -6,15 +6,9 @@ import { withSvg } from "../../instruments/withSvg";
 
 class Checkbox extends Component {
   render () {
-    // const { checked, color1, color2 } = this.props;
+    const { checked, color1, color2 } = this.props;
 
-    // const fill = checked ? color1 : color2;
-
-    const { hover, checked, disabled, color1, color2, color3, color4 = color1 } = this.props;
-
-    const fill = disabled ? color3 : checked && hover ? color4 : checked ? color1 : color2;
-
-    const strokeColor = disabled ? color3 : hover ? color4 : checked ? color1 : color1;
+    const fill = checked ? color1 : color2;
 
     return (
       <g>
@@ -23,7 +17,7 @@ class Checkbox extends Component {
           height= '25'
           rx= '5'
           ry ='5'
-          stroke ={ strokeColor }
+          stroke ={ color1 }
           style= { { strokeWidth: 2 } }
           width ='25'
           x= '1'

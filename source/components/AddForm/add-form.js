@@ -17,15 +17,14 @@ class AddForm extends Component {
         const isEnterKeyPressed = evt.key === 'Enter';
 
         if (isEnterKeyPressed) {
-            event.preventDefault();
-            this._submitNewTask();
+            this._submitNewTask(evt);
         }
     }
 
-    _submitNewTask () {
+    _submitNewTask (evt) {
         const { onAddTask } = this.props;
 
-        onAddTask();
+        onAddTask(evt);
     }
 
     render () {
