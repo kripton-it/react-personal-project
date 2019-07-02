@@ -16,7 +16,7 @@ export default class Task extends PureComponent {
         this.state = {
             isTaskEditing: false,
             newMessage:    this.props.message,
-        }
+        };
         this.taskInput = createRef();
     }
 
@@ -47,7 +47,7 @@ export default class Task extends PureComponent {
 
         await _removeTaskAsync(id);
     }
-    
+
     _toggleTaskCompletedState = async () => {
         const { completed, _updateTaskAsync } = this.props;
 
@@ -65,12 +65,9 @@ export default class Task extends PureComponent {
 
         if (isTaskEditing) {
             await this._updateTask();
-            // this._cancelUpdatingTaskMessage();
 
             return null;
         }
-
-        // await this._updateTask();
 
         this._setTaskEditingState(true);
 
@@ -91,7 +88,7 @@ export default class Task extends PureComponent {
     }
 
     _updateTaskMessageOnKeyDown = async ({ key }) => {
-        if (this.state.newMessage.length === 0) {
+        if (this.state.newMessage === '') {
             return null;
         }
 
@@ -103,6 +100,8 @@ export default class Task extends PureComponent {
 
         if (key === 'Escape') {
             this._cancelUpdatingTaskMessage();
+
+            return null;
         }
 
         return null;
@@ -118,8 +117,6 @@ export default class Task extends PureComponent {
         const newTask = this._getTaskShape({ message: this.state.newMessage });
 
         await this.props._updateTaskAsync(newTask);
-
-        // this._setTaskEditingState(false);
 
         return null;
     }

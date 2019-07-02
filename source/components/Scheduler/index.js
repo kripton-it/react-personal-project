@@ -170,48 +170,20 @@ export default class Scheduler extends Component {
                                     <FlipMove duration = { 400 } >
                                         { tasksList }
                                     </FlipMove>
-                                    {/* <FlipMovePropConverter
-                                        delay = { 0 }
-                                        disableAllAnimations = { false }
-                                        duration = { 400 }
-                                        easing = 'ease-in-out'
-                                        enterAnimation = 'elevator'
-                                        getPosition = { () => {} }
-                                        leaveAnimation = 'elevator'
-                                        maintainContainerHeight = { false }
-                                        staggerDelayBy = { 0 }
-                                        staggerDurationBy = { 0 }
-                                        typeName = 'div'
-                                        verticalAlignment = 'top' >
-                                        <div>
-                                            { tasksList }
-                                        </div>
-                                    </FlipMovePropConverter> */}
                                 </ul>
                             </div>
                         </section>
                         <footer>
                             <Checkbox
-                                // inlineBlock
                                 checked = { isAllCompleted }
                                 color1 = '#363636'
                                 color2 = '#fff'
-                                // disabled = { isAllCompleted }
                                 onClick = { this._completeAllTasksAsync }
                             />
                             <span className = { Styles.completeAllTasks }>
                                 Все задачи выполнены
                             </span>
                         </footer>
-                        {/* <Header _updateTasksFilter = { this._updateTasksFilter } tasksFilter = { tasksFilter } /> */}
-                        {/* <Main
-                            taskMessage = { newTaskMessage }
-                            onAddTask = { this._createTaskAsync }
-                            onChangeTask = { this._updateNewTaskMessage }
-                            onRemoveTask = { this._removeTaskAsync }
-                            onUpdateTask = { this._updateTaskAsync }
-                        /> */}
-                        {/* <Footer onComplete = { this._completeAllTasksAsync } /> */}
                     </main>
                 </section>
             </Provider>

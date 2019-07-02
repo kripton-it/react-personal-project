@@ -15,7 +15,7 @@
     font-weight: 400;
 
     & svg {
-      cursor: pointer;
+        cursor: pointer;
     }
 
     & .content {

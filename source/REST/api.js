@@ -74,7 +74,6 @@ const updateTask = async ({ id, message, completed, favorite }) => {
 
     const { data: tasks } = await response.json();
 
-    // return tasks[0];
     return tasks;
 };
 
