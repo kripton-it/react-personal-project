@@ -60,11 +60,11 @@ export default class Task extends PureComponent {
         await _updateTaskAsync(this._getTaskShape({ favorite: !favorite }));
     }
 
-    _updateTaskMessageOnClick = async () => {
+    _updateTaskMessageOnClick = () => {
         const { isTaskEditing } = this.state;
 
         if (isTaskEditing) {
-            await this._updateTask();
+            this._cancelUpdatingTaskMessage();
 
             return null;
         }
