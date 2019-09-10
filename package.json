@@ -1,8 +1,9 @@
 {
-    "name": "react-personal-project",
+    "name": "react-task-manager",
     "version": "2.4.0",
-    "author": "Dima Vakatsiienko <dvakatsiienko@lectrum.io>",
+    "author": "Mikhail Shardin <kriptonit1988@gmail.com>",
     "private": true,
+    "homepage": "https://kripton-it.github.io/react-personal-project",
     "scripts": {
         "start": "cross-env-shell NODE_ENV=development BUILD_ENV=development webpack-dev-server --config=\"./webpack/webpack.config.babel.js\" --env development",
         "build:config": "webpack --config=\"./webpack/webpack.config.babel.js\" --env production --display-reasons",
